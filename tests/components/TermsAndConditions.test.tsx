@@ -10,9 +10,9 @@ describe('TermsAndConditions', () => {
       heading: screen.getByRole('heading'),
       checkbox: screen.getByRole('checkbox'),
       button: screen.getByRole('button'),
+      user: userEvent.setup(),
     };
   };
-  const user = userEvent.setup();
 
   it('renders the component with correct initial state', () => {
     const { heading, checkbox, button } = renderComponent();
@@ -23,7 +23,7 @@ describe('TermsAndConditions', () => {
   });
 
   it('enables the submit button when checkbox is checked', async () => {
-    const { checkbox, button } = renderComponent();
+    const { checkbox, button, user } = renderComponent();
 
     await user.click(checkbox);
 
@@ -32,7 +32,7 @@ describe('TermsAndConditions', () => {
   });
 
   it('disables the submit button when checkbox is unchecked', async () => {
-    const { checkbox, button } = renderComponent();
+    const { checkbox, button, user } = renderComponent();
 
     await user.click(checkbox);
     await user.click(checkbox);
@@ -42,7 +42,7 @@ describe('TermsAndConditions', () => {
   });
 
   it('toggles checkbox state correctly on multiple clicks', async () => {
-    const { checkbox } = renderComponent();
+    const { checkbox, user } = renderComponent();
 
     await user.click(checkbox);
     expect(checkbox).toBeChecked();
