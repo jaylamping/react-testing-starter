@@ -13,6 +13,7 @@ describe('OrderStatusSelector', () => {
 
     return {
       button: screen.getByRole('combobox'),
+      getOptions: () => screen.findAllByRole('option'),
       user: userEvent.setup(),
     };
   };
@@ -24,11 +25,11 @@ describe('OrderStatusSelector', () => {
   });
 
   it('should render correct statuses', async () => {
-    const { button, user } = renderOrderStatusSelector();
+    const { button, getOptions, user } = renderOrderStatusSelector();
 
     await user.click(button);
 
-    const options = await screen.findAllByRole('option');
+    const options = await getOptions();
     expect(options).toHaveLength(3);
     const labels = options.map((option) => option.textContent);
     expect(labels).toEqual(['New', 'Processed', 'Fulfilled']);
